@@ -64,10 +64,18 @@ Run the C++ solver with the problem file and optional configuration.
 ```
 
 ### 3. Visualize the Result
-Visualize the generated solution path.
+### 3. Visualize the Result
+Visualize the generated solution path. The output image will show the path with order indices for each city to clearly indicate the traversal direction.
 ```bash
 python3 scripts/visualize.py tests/problem.txt solution.json --output result.png
 ```
+
+### 4. Benchmarking
+To evaluate the solver's performance across multiple test instances:
+```bash
+python3 scripts/benchmark.py --solver ./build/bin/tsp_solver --tests tests
+```
+This script runs the solver on all `.txt` files in the `tests` directory and reports the cost and runtime for each.
 
 ## Project Structure
 

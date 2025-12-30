@@ -22,20 +22,32 @@ def plot_tsp(points, solution_path, cost, output_file=None):
     y = [p[1] for p in points]
 
     plt.figure(figsize=(10, 10))
-    plt.scatter(x, y, c='red', s=40, zorder=2)
     
     # Draw path
     if solution_path:
         path_x = []
         path_y = []
-        for idx in solution_path:
-            path_x.append(points[idx][0])
-            path_y.append(points[idx][1])
+        for i, idx in enumerate(solution_path):
+            px, py = points[idx]
+            path_x.append(px)
+            path_y.append(py)
+            
+            # Annotate order
+            plt.annotate(str(i), (px, py), textcoords="offset points", xytext=(0,5), ha='center', fontsize=8, color='darkblue')
+            
         # Close loop
         path_x.append(points[solution_path[0]][0])
         path_y.append(points[solution_path[0]][1])
         
-        plt.plot(path_x, path_y, 'b-', linewidth=1, zorder=1)
+        plt.plot(path_x, path_y, 'b-', linewidth=1, zorder=1, alpha=0.7)
+        
+        # Plot points on top
+        plt.scatter(x, y, c='red', s=40, zorder=2)
+        
+        # Mark start
+        start_idx = solution_path[0]
+        plt.scatter([points[start_idx][0]], [points[start_idx][1]], c='green', s=100, zorder=3, label='Start')
+        plt.legend()
 
     plt.title(f"TSP Solution (Cost: {cost:.2f})")
     plt.xlabel("X")
